@@ -13,7 +13,7 @@ router.get('/getAllPatients', getAllPatients);
 
 router.get('/getOnePatient/:id', getOnePatient);
 
-router.patch('/updatePatient/:id',  patientUpdateValidation, updateOnePatient );
+router.put('/updatePatient/:id',  patientUpdateValidation, updateOnePatient);
 
 router.delete('/deletePatient/:id', deletePatient);
 
