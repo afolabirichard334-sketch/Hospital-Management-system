@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here if needed in the future
+      Patient.hasMany(models.Appointment, {
+        foreignKey: 'patientId',
+        as: 'Appointments',
+        onUpdate: 'CASCADE',
+        onDelete:'CASCADE'
+      })
     }
   }
   
@@ -64,6 +70,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize, 
     modelName: 'Patient',
+    tableName: 'Patients'
   });
   
   return Patient;

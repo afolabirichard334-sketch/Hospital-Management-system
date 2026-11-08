@@ -1,11 +1,12 @@
 const express = require('express');
 require('dotenv').config();
-const PORT = process.env.PORT || 2026;
+const PORT = 2026;
 const sequelize = require('./database/database');
 
 const departmentRouter = require('./Routes/departmentRouter')
 const doctorRouter = require('./Routes/doctorRouter')
 const patientRouter = require('./Routes/patientRoutes')
+const appointmentRouter =  require('./Routes/appointmentRoutes')
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(departmentRouter);
 app.use(doctorRouter);
 app.use(patientRouter);
+app.use(appointmentRouter)
 
 
 const DBConnection = async() =>{
