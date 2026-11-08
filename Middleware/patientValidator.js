@@ -39,7 +39,7 @@ const patientValidation = (req, res, next) => {
         }),
        
         allergies: Joi.string().trim().optional().allow("").messages({
-            "string.base": "Allergies must be a text",
+            "string.base.pattern": "Allergies must be a text",
         }),
 
         dateOfBirth: Joi.date().iso().max("now").required().messages({

@@ -16,10 +16,12 @@ module.exports = (sequelize, DataTypes) => {
         as: "department"
       })
 
-      // Doctor.hasMany(models.Appointment, {
-      //   foreignKey:"doctorId",
-      //   as: "appointments"
-      // })
+      Doctor.hasMany(models.Appointment, {
+        foreignKey: 'doctorId',
+        as: 'Appointments',
+        onUpdate: 'CASCADE',
+        onDelete:'CASCADE'
+      })
     }
   }
   Doctor.init({
