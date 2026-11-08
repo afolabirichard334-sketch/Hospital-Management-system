@@ -3,10 +3,15 @@ require('dotenv').config();
 const PORT = process.env.PORT || 2026;
 const sequelize = require('./database/database');
 
-
+const departmentRouter = require('./Routes/departmentRouter')
+const doctorRouter = require('./Routes/doctorRouter')
 
 const app = express();
-app.use = (express.json())
+
+app.use(express.json());
+
+app.use(departmentRouter);
+app.use(doctorRouter);
 
 
 const DBConnection = async() =>{
