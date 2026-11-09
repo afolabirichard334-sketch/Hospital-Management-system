@@ -16,8 +16,7 @@ const appointmentValidation = (req,res, next)=> {
   }),
  
   AppointmentDate: Joi.string()
-    .pattern(DATE_PATTERN)
-    .custom(futureDate)
+    .pattern(/^\d{4}-\d{2}-\d{2}$/)
     .required()
     .messages({
       'any.required': 'Appointment date is required',
@@ -25,14 +24,14 @@ const appointmentValidation = (req,res, next)=> {
       'string.pattern.base': 'Appointment date must be in YYYY-MM-DD format, for example 2026-11-10',
     }),
  
-  AppointmentTime: Joi.string().pattern(TIME_PATTERN).required().messages({
+  AppointmentTime: Joi.string().pattern(/^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/).required().messages({
     'any.required': 'Appointment time is required',
     'string.empty': 'Appointment time must not be empty',
     'string.pattern.base': 'Appointment time must be 24-hour HH:mm, for example 09:21 or 14:30',
   }),
  
-  status: Joi.string().valid(...STATUSES).optional().messages({
-    'any.only': `Status must be one of: ${STATUSES.join(', ')}`,
+  status: Joi.string().valid('pending', 'confirmed', 'completed', 'cancelled').optional().messages({
+    'any.only': "Status must be one of these: 'pending', 'confirmed', 'completed', 'cancelled'"
   }),
  
   reason: Joi.string().trim().min(3).max(255).required().messages({
@@ -44,7 +43,7 @@ const appointmentValidation = (req,res, next)=> {
 });
   
 
-const { error } = schema.validate(req.body);
+const { error } = Schema.validate(req.body);
  
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
@@ -56,14 +55,14 @@ const { error } = schema.validate(req.body);
 
 const updateAppointmentValidator = (req, res, next)=> {
     const updateSchema = Joi.object({
-  AppointmentDate: Joi.string().pattern(DATE_PATTERN).custom(futureDate).messages({
+  AppointmentDate: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).messages({
     'string.pattern.base': 'Appointment date must be in YYYY-MM-DD format, for example 2026-11-10',
   }),
-  AppointmentTime: Joi.string().pattern(TIME_PATTERN).messages({
+  AppointmentTime: Joi.string().pattern(/^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/).messages({
     'string.pattern.base': 'Appointment time must be 24-hour HH:mm, for example 09:21 or 14:30',
   }),
-  status: Joi.string().valid(...STATUSES).messages({
-    'any.only': `Status must be one of: ${STATUSES.join(', ')}`,
+  status: Joi.string().valid().messages({
+    'any.only': `Status must be one of these: 'pendin', 'confirmed', 'completed','cancelled'`
   }),
   reason: Joi.string().trim().min(3).max(255).messages({
     'string.min': 'Reason must be at least 3 characters',
