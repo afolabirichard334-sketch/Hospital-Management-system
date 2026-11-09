@@ -73,7 +73,7 @@ The API endpoints will be tested using Postman.
 # Team Members
 - Ehinmosan Jessica Ololade
 - Nwosu Lucky
-- [Add other group members here]
+- Joseph Ichekanu
 - Richard Afolabi
 
 # Project Status
